@@ -6,8 +6,12 @@ import Todo from "./Todo";
 const TodoList = props => {
     return (
         <div>
-            <Todo />
+            {props.todos.map(todo => (
+                <Todo key={todo.id} todo={todo} />
+            ))}
             <button className="clear-btn">Clear</button>
         </div>
     )
-}
+};
+
+export default TodoList;
