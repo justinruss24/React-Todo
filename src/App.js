@@ -5,15 +5,10 @@ import TodoForm from '../src/components/TodoForm';
 
 const todos = [
   {
-    task: 'learn React',
+    task: '',
     id: 1,
     completed: false
   },
-  {
-    task: 'finish todo list',
-    id: 2,
-    completed: false
-  }
 ]
 
 class App extends React.Component {
@@ -32,20 +27,26 @@ class App extends React.Component {
     const newTodo = {
       task: todoName,
       id: Date.now(),
-      purchased: false
+      completed: false
     };
     this.setState({
       todos: [...this.state.todos, newTodo]
     });
   };
 
-  toggleComplete = clickedTodoId => {
+  clearCompleted = () => {
+    this.setState({
+      todos: this.state.todos.filter(todo => !todo.completed)
+    })
+  }
+
+  toggleCompleted = clickedTodoId => {
     this.setState({
       todos: this.state.todos.map(todo => {
         if (todo.id === clickedTodoId) {
           return {
             ...todo,
-            purchased: !todo.purchased
+            completed: !todo.completed
           };
         } else {
           return todo;
@@ -59,7 +60,7 @@ class App extends React.Component {
       <div>
         <h2>Welcome to your Todo App!</h2>
         <TodoForm addTodo={this.addTodo}/>
-        <TodoList todos={this.state.todos} toggleComplete={this.toggleComplete}/>
+        <TodoList todos={this.state.todos} toggleCompleted={this.toggleCompleted} clearCompleted={this.clearCompleted}/>
       </div>
       
     );
