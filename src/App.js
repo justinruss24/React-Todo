@@ -1,7 +1,8 @@
 import React from 'react';
-
+import styled from 'styled-components';
 import TodoList from '../src/components/TodoList';
 import TodoForm from '../src/components/TodoForm';
+import './components/Todo.css';
 
 const todos = [
   {
@@ -10,6 +11,20 @@ const todos = [
     completed: false
   },
 ]
+const Container = styled.div `
+  display: flex;
+  justify-content: center;
+  align-items: center
+`
+
+const List = styled.div `
+  width: 300px;
+  height: 450px;
+  border: 2px solid black;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+`
 
 class App extends React.Component {
   // you will need a place to store your state in this component.
@@ -46,7 +61,7 @@ class App extends React.Component {
         if (todo.id === clickedTodoId) {
           return {
             ...todo,
-            completed: !todo.completed
+            completed: !todo.completed,
           };
         } else {
           return todo;
@@ -57,12 +72,17 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
-        <h2>Welcome to your Todo App!</h2>
-        <TodoForm addTodo={this.addTodo}/>
-        <TodoList todos={this.state.todos} toggleCompleted={this.toggleCompleted} clearCompleted={this.clearCompleted}/>
-      </div>
-      
+      <Container>
+        <List>
+          <h2>Definitely should do these things..</h2>
+          <TodoForm addTodo={this.addTodo} />
+          <TodoList
+            todos={this.state.todos}
+            toggleCompleted={this.toggleCompleted}
+            clearCompleted={this.clearCompleted}
+          />
+        </List>
+      </Container>
     );
   }
 }
